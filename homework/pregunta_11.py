@@ -5,6 +5,32 @@ datos requeridos se encuentran en los archivos `tbl0.tsv`, `tbl1.tsv` y
 librerias de pandas para resolver las preguntas.
 """
 
+import pandas as pd
+
+def ordenador(
+          db: pd.DataFrame,
+          col1: str, col2: str,
+          sep: str,
+          tipo: str
+     ) -> pd.DataFrame:
+     """
+     Esta función toma todas las instancias posibles en col2 para cada
+     nivel de col1 y los agrega en una nueva columna, organizados
+     alfanuméricamente y separados por comas
+     """
+
+     db =  db.groupby([col1])[col2].apply(
+        lambda x: sep.join(sorted(x))
+     )
+
+     #retorno = pd.DataFrame(list(retorno.items()), columns=[col1, col2])
+
+     db = db.to_dict()
+
+     if tipo == 'dicc':
+          return db
+     elif tipo == 'df':
+          return pd.DataFrame(list(db.items()), columns=[col1, col2])
 
 def pregunta_11():
     """
@@ -22,3 +48,12 @@ def pregunta_11():
     38   38      d,e
     39   39    a,d,f
     """
+
+    direccion = './files/input/tbl1.tsv'
+    db1 = pd.read_csv(direccion, sep='\t')
+
+    dbx = ordenador(db1, col1='c0', col2='c4', sep=',', tipo='df')
+
+    return dbx
+
+#print(pregunta_11())

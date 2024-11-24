@@ -21,3 +21,19 @@ def pregunta_03():
     Name: count, dtype: int64
 
     """
+
+    import pandas as pd
+
+    direccion = './files/input/tbl0.tsv'
+    df0 = pd.read_csv(direccion, sep='\t')
+
+    conteo = df0.c1.value_counts()
+    
+    conteo = pd.Series(conteo)
+
+    conteo.sort_index(inplace=True)
+
+    return conteo
+
+#print(pregunta_03())
+

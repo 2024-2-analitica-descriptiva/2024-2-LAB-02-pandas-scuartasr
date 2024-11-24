@@ -14,3 +14,10 @@ def pregunta_02():
     4
 
     """
+
+    import pandas as pd
+
+    direccion = './files/input/tbl0.tsv'
+    df0 = pd.read_csv(direccion, sep='\t')
+
+    return df0.shape[1]
